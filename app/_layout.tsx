@@ -1,45 +1,38 @@
 import "@/styles/globals.css";
-import {
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_700Bold,
-  useFonts,
-} from "@expo-google-fonts/roboto";
-import { Stack, useRouter } from "expo-router";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const router = useRouter();
-  const [fontsLoaded] = useFonts({
-    Roboto: Roboto_400Regular,
-    "Roboto-Medium": Roboto_500Medium,
-    "Roboto-Bold": Roboto_700Bold,
+  const [loaded, error] = useFonts({
+    // Add your fonts here
   });
 
   useEffect(() => {
-    if (fontsLoaded) {
+    if (loaded || error) {
       SplashScreen.hideAsync();
-      router.replace("/splash");
     }
-  }, [fontsLoaded]);
+  }, [loaded, error]);
 
-  if (!fontsLoaded) {
+  if (!loaded && !error) {
     return null;
   }
 
   return (
-    <>
-      <StatusBar style="dark" backgroundColor="transparent" translucent />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: "white" },
-        }}
-      />
-    </>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: "white" },
+      }}
+    >
+      <Stack.Screen name="index" />
+      <Stack.Screen name="splash" />
+      <Stack.Screen name="(onboarding)" />
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(tabs)" />
+    </Stack>
   );
 }
