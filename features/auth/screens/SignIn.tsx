@@ -1,14 +1,10 @@
 import { BackButtonIcon } from "@/assets/svg";
+import { TEST_CREDENTIALS } from "@/config/constants";
 import { Button, TextInput } from "@/shared/components";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const VALID_CREDENTIALS = {
-  email: "ernest@cpay.com",
-  password: "Password123",
-};
 
 export default function SignIn() {
   const router = useRouter();
@@ -56,8 +52,8 @@ export default function SignIn() {
     }
 
     if (
-      email === VALID_CREDENTIALS.email &&
-      password === VALID_CREDENTIALS.password
+      email === TEST_CREDENTIALS.email &&
+      password === TEST_CREDENTIALS.password
     ) {
       router.push("/otp");
     } else {
