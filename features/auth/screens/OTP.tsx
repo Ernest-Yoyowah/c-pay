@@ -39,7 +39,7 @@ export default function OTP() {
   const handleConfirm = () => {
     const otpCode = otp.join("");
     if (otpCode.length === 6) {
-      router.push("/");
+      router.push("/biometric");
     }
   };
 
