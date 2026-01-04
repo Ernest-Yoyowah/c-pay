@@ -69,6 +69,10 @@ export default function SignIn() {
     router.back();
   };
 
+  const handleForgotPassword = () => {
+    router.push("/password-recovery");
+  };
+
   const handleGoogleSignIn = () => {
     // Handle Google sign in
   };
@@ -113,6 +117,7 @@ export default function SignIn() {
               keyboardType="email-address"
               autoCapitalize="none"
               autoComplete="email"
+              hasError={!!emailError}
             />
             {emailError ? (
               <Text className="text-[12px] text-red-500 mt-1 ml-2">
@@ -129,6 +134,7 @@ export default function SignIn() {
               isPassword
               autoCapitalize="none"
               autoComplete="password"
+              hasError={!!passwordError}
             />
             {passwordError ? (
               <Text className="text-[12px] text-red-500 mt-1 ml-2">
@@ -147,9 +153,11 @@ export default function SignIn() {
         ) : null}
 
         <View className="mt-6">
-          <Text className="text-[16px] font-bold text-[#1DAB87]">
-            Forgot Password?
-          </Text>
+          <TouchableOpacity onPress={handleForgotPassword} activeOpacity={0.7}>
+            <Text className="text-[16px] font-bold text-[#1DAB87]">
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
           <View className="mt-6">
             <Button title="Sign In" onPress={handleSignIn} fullWidth />
           </View>

@@ -13,14 +13,13 @@ export default function SignUp() {
   const [fullNameError, setFullNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [generalError, setGeneralError] = useState("");
 
   const validateFullName = (name: string): boolean => {
-    if (!name) {
+    if (!name.trim()) {
       setFullNameError("Full name is required");
       return false;
     }
-    if (name.length < 2) {
+    if (name.trim().length < 2) {
       setFullNameError("Full name must be at least 2 characters");
       return false;
     }
@@ -47,8 +46,8 @@ export default function SignUp() {
       setPasswordError("Password is required");
       return false;
     }
-    if (password.length < 6) {
-      setPasswordError("Password must be at least 6 characters");
+    if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters");
       return false;
     }
     setPasswordError("");
@@ -56,8 +55,6 @@ export default function SignUp() {
   };
 
   const handleSignUp = () => {
-    setGeneralError("");
-
     const isFullNameValid = validateFullName(fullName);
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
@@ -77,26 +74,27 @@ export default function SignUp() {
     router.back();
   };
 
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignUp = () => {
+    // Handle Google sign up
+  };
 
-  const handleAppleSignIn = () => {};
+  const handleAppleSignUp = () => {
+    // Handle Apple sign up
+  };
 
   const handleFullNameChange = (value: string) => {
     setFullName(value);
     if (fullNameError) setFullNameError("");
-    if (generalError) setGeneralError("");
   };
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
     if (emailError) setEmailError("");
-    if (generalError) setGeneralError("");
   };
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
     if (passwordError) setPasswordError("");
-    if (generalError) setGeneralError("");
   };
 
   return (
@@ -123,6 +121,7 @@ export default function SignUp() {
               onChangeText={handleFullNameChange}
               autoCapitalize="words"
               autoComplete="name"
+              hasError={!!fullNameError}
             />
             {fullNameError ? (
               <Text className="text-[12px] text-red-500 mt-1 ml-2">
@@ -139,6 +138,7 @@ export default function SignUp() {
               keyboardType="email-address"
               autoCapitalize="none"
               autoComplete="email"
+              hasError={!!emailError}
             />
             {emailError ? (
               <Text className="text-[12px] text-red-500 mt-1 ml-2">
@@ -155,6 +155,7 @@ export default function SignUp() {
               isPassword
               autoCapitalize="none"
               autoComplete="password"
+              hasError={!!passwordError}
             />
             {passwordError ? (
               <Text className="text-[12px] text-red-500 mt-1 ml-2">
@@ -163,14 +164,6 @@ export default function SignUp() {
             ) : null}
           </View>
         </View>
-
-        {generalError ? (
-          <View className="mt-4 bg-red-50 p-3 rounded-xl">
-            <Text className="text-[13px] text-red-600 text-center">
-              {generalError}
-            </Text>
-          </View>
-        ) : null}
 
         <View className="mt-6">
           <Button title="Sign Up" onPress={handleSignUp} fullWidth />
@@ -183,13 +176,13 @@ export default function SignUp() {
         </View>
 
         <View className="mt-7 flex flex-row items-center justify-between">
-          <TouchableOpacity onPress={handleGoogleSignIn} activeOpacity={0.8}>
+          <TouchableOpacity onPress={handleGoogleSignUp} activeOpacity={0.8}>
             <Image
               source={require("@/assets/auth/google.png")}
               className="w-[180px] h-[56px]"
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleAppleSignIn} activeOpacity={0.8}>
+          <TouchableOpacity onPress={handleAppleSignUp} activeOpacity={0.8}>
             <Image
               source={require("@/assets/auth/apple.png")}
               className="w-[180px] h-[56px]"
